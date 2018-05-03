@@ -1,0 +1,49 @@
+
+class SegmentTree{
+    private:
+        vector<int> A, tree;
+        int n;
+        int left(int node) { return node << 1; }
+        int right(int node) { return left(node)+1; }
+        
+        void build(int node, int be, int en){
+            if(be == en){
+                tree[node] = A[be];
+                return;
+            }
+            int mid = (be+en)>>1;
+            build(left(node), be, mid);
+            build(right(node), mid+1, en);
+            tree[node] = tree[left(node)] + tree[right(node)];
+        }
+        int query(int node, int be, int en, int i, int j){
+            if(i>en || j<be)
+                return 0;
+            if(be >= i && en <= j)
+                return tree[node]; //relevant segment
+            int mid = (be + en)>>1;
+            int p1 = query(left(node), be, mid, i, j);
+            int p2 = query(right(node), mid+1, en, i, j);
+            return p1 + p2;
+        }
+        void update(int node, int be, int en, int i, int newValue){
+            if(i > en || i < be)
+                return;
+            if(be >= i && en <= i){
+                tree[node] = newValue;
+                return;
+            }
+            int mid = (be + en)>>1;
+            update(left(node), be, mid, i, newValue);
+            update(right(node), mid+1, en, i, newValue);
+            tree[node] = tree[left(node)] + tree[right(node)];
+        }
+    public:
+        SegmentTree(const vector<int> & _A){
+            A = _A; n = (int)A.size();
+            tree.assign(4*n,0);
+            build(1, 0, n-1);   //1 based tree
+        }
+        int query(int i, int j) { return query(1, 0, n-1, i, j); } //overloading
+        void update(int i, int x) { update(1, 0, n-1, i, x); }
+};

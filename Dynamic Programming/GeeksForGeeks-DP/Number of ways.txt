@@ -1,0 +1,26 @@
+//Fibonacci Problem
+#include<bits/stdc++.h>
+using namespace std;
+#define lng long long
+lng dp[81];
+
+lng tiling(int n){
+    if(n<4) return 1;
+    if(n==4) return 2;
+    if(dp[n] != -1) return dp[n];
+    return dp[n]= tiling(n-1) + tiling(n-4);
+}
+
+int main(){
+	int t, n;
+	cin>>t;
+        memset(dp, -1, sizeof(dp));
+	while(t--){
+	    cin>>n;
+	    cout<<tiling(n)<<endl;
+	}
+	
+	return 0;
+}
+
+// http://practice.geeksforgeeks.org/problems/number-of-ways/0

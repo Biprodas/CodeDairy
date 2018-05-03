@@ -1,0 +1,16 @@
+/*-Dynamic Data Structures
+  -Based on LIFO (Last-In-First-Out) or FILO(First In Last Out). scheduling
+  -while dealing with a stack, the "head" element always has to be dealt with.
+
+Stack Operations (cpp STL):
+   std::stack<int> st;
+    st.empty() -Test whether container is empty
+    st.size()  -return size of the stack (number of element)
+    st.push(x) -Insert element
+    st.pop()   -remove top element
+    st.top()   -access top element of stack
+
+    st.emplace() -constract and insert element (c++11)
+    st.swap()  -swap contents between two stacks (c++11)
+*/
+

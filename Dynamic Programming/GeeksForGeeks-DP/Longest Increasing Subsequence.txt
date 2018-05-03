@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int ar[302];
+int dp[302];
+int n;
+
+int longest(int u){
+    if(dp[u]!=-1) return dp[u];
+    int mx=0;
+    for(int v=u+1;v<=n;v++){ //1. u theke v te jaoa jabe jodi, v>u, 
+        if(ar[v]>ar[u]){//2. and value[v]>value[u] hoy.
+            mx= max(mx, longest(v));
+        }
+    }
+    return dp[u]= 1+mx;
+}
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        cin>>n;
+        for(int i=1;i<=n;i++)
+            cin>>ar[i];
+        memset(dp,-1,sizeof(dp));
+        int LIS=0;
+        for(int i=1;i<=n;i++){
+            if(LIS<longest(i)){
+                LIS= longest(i);
+            }
+        }
+        cout<<LIS<<endl;
+    }
+
+}
+
+// http://practice.geeksforgeeks.org/problems/longest-increasing-subsequence/0

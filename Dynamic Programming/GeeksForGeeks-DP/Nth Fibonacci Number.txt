@@ -1,0 +1,43 @@
+#include <bits/stdc++.h>
+
+using namespace std;
+
+#define lng long long
+
+#define MOD 1000000007
+
+int dp[1003];
+
+
+
+int fibo(int n){
+
+    if(n<2) return n;
+
+    if(dp[n]!=-1) return dp[n];
+
+    return dp[n]= (fibo(n-1) + fibo(n-2)) % MOD;
+
+}
+
+
+
+int main(){
+
+    int t, n;
+
+    cin>>t;
+
+    memset(dp,-1,sizeof(dp));
+
+    while(t--){
+
+        cin>>n;
+
+        cout<<fibo(n)<<endl;
+
+    }
+
+}
+
+// http://practice.geeksforgeeks.org/problems/nth-fibonacci-number/0

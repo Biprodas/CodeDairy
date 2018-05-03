@@ -1,0 +1,19 @@
+## Node is defined as :
+  struct Node {
+     int data;
+     struct Node *next;
+  };
+
+# Create a new Node :
+    Node *newNode = (Node*)malloc(sizeof(Node));
+or, Node *newNode = new Ndoe();
+
+# Copy of a Node: 
+    	node *current_node = root; //make a copy of root node
+
+# Delete a Node : //free memory
+    delete(node); 
+
+
+
+

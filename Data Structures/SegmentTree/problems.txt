@@ -1,0 +1,8 @@
+Easy:
+Light OJ - 1082 - Array Queries
+Light OJ - 1112 - Curious Robin Hood
+Light OJ - 1080 - Binary Simulation
+
+
+Medium:
+HORRIBLE - Horrible Queries - SPOJ

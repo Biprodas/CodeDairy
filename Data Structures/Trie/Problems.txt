@@ -1,0 +1,7 @@
+Trie:
+UVA 11362
+UVA 10226
+UVA 11362 Phonebook
+UVA 11488 Hyper prefix sets
+POJ 2001 Shortest Prefix
+POJ 1056

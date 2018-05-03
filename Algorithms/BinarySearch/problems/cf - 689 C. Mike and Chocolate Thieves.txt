@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sc(x) scanf("%d", &x)
+#define scc(x, y) scanf("%d %d", &x, &y)
+#define lng long long
+
+lng check(lng n){
+    lng ret = 0;
+    for(lng k=2; k*k*k <= n; k++){
+        ret += n/(k*k*k);
+    }
+    //cout<<x<<" "<<ret<<endl;
+    return ret;
+}
+
+lng bs(lng m){
+    lng lo=0, hi=1e16;
+    while(lo < hi) {
+        lng mid = (lo+hi)/2;
+        if(check(mid) < m) lo = mid+1; 
+        else hi = mid;
+    }
+    return check(lo)==m ? lo : -1;
+}
+
+int main(){
+    lng m;
+    cin>>m;
+    cout<<bs(m)<<endl;
+    return 0;
+}

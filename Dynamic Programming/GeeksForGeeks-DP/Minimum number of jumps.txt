@@ -1,0 +1,34 @@
+//LIS Problem
+#include<bits/stdc++.h>
+using namespace std;
+int ar[101];
+int dp[101];
+int t, n, inf=111;
+
+int minJump(int u){
+    if(dp[u]!=-1) return dp[u];
+    int mn= inf;
+    for(int v=u+1, i=0; i<ar[u] & v<=n; i++, v++){
+        mn= min(mn, minJump(v));
+    }
+    return dp[u]= mn+1;
+}
+
+int main(){
+	cin>>t;
+	while(t--){
+	    memset(dp, -1, sizeof(dp));
+	    cin>>n;
+	    for(int i=1;i<=n;i++){
+	        cin>>ar[i];
+            if(ar[i]==0) dp[i]= inf;
+	    }
+	    dp[n]=0;
+	    int ans= minJump(1);
+	    (ans < inf) ? printf("%d\n",ans) : printf("-1\n");
+	}
+	
+	return 0;
+}
+
+// http://practice.geeksforgeeks.org/problems/minimum-number-of-jumps/0

@@ -1,0 +1,33 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int coin[302];
+int dp[302][302];
+int t, m, n;
+
+int call(int i, int amount){
+    if(i==m)  return amount==0 ? 1 : 0 ;
+    if(dp[i][amount]!=-1) return dp[i][amount];
+
+    int ans1=0, ans2=0;
+    if(amount-coin[i]>=0)
+        ans1= call(i, amount-coin[i]); //try to take coin i again
+    ans2= call(i+1, amount);   //don't take coin i. try next
+
+    return dp[i][amount]= ans1 + ans2; 
+}
+
+int main(){
+    cin>>t;
+    while(t--){
+        cin>>m;
+        for(int i=0;i<m;i++) 
+            cin>>coin[i];
+        memset(dp,-1,sizeof(dp));
+        cin>>n;
+        cout<<call(0,n)<<endl;
+    }
+    return 0;
+}
+
+//http://practice.geeksforgeeks.org/problems/coin-change/0

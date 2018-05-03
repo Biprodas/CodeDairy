@@ -1,0 +1,44 @@
+# Binary Search Implementation:
+
+bool search(int x[], int n, int k) {
+    int p = 0;
+    for (int a = n; a >= 1; a /= 2) {
+        while (p+a < n && x[p+a] <= k) p += a;
+    }
+    return x[p] == k;
+}
+-------------------------------------------------------
+# counts how many times the key appears in the array:
+
+int count(int x[], int n, int k) {
+    int p = -1, q = -1;
+    for (int a = n; a >= 1; a /= 2) {
+        while (p+a < n && x[p+a] < k) p += a;
+        while (q+a < n && x[q+a] <= k) q += a;
+    }
+    return q-p;
+}
+-------------------------------------------------------
+Minimum:
+int bs(){
+    lng lo = 0, hi = 1e9;
+    while(lo < hi) {
+        lng mid = (lo + hi) / 2;
+        if(ok(mid)==0) hi = mid;
+        else lo = mid + 1;
+    }
+    return lo;
+}
+--------------------------------------------------------
+Maximum :
+int bs(){
+    int lo = 0, hi = 1e9;
+    while(lo < hi) {
+        int mid = (lo+hi+1)/2;
+        if(ok(mid)==0) hi = mid-1;
+        else lo = mid;
+    }
+    return lo;
+}
+// after the loop, lo = hi = x
+---------------------------------------------------------

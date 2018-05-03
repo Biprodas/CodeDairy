@@ -1,0 +1,115 @@
+//https://www.hackerrank.com/challenges/qheap1
+#include<bits/stdc++.h>
+using namespace std;
+
+#define NN 100005 //Heap size
+
+struct minHeap{
+    int n; //number of nodes in heapArr
+    int heapArr[NN+1]; //array is 1 based
+    minHeap(){ clear(); } //constructor
+    void clear(){ n=0; }
+    void min_heapify(int index);
+    void insert(int k);
+    int search(int k);
+    int removeMin();
+    void deleteKey(int k);
+    int getMin();
+    void printHeap();
+};
+void minHeap::min_heapify(int index){
+        int left = 2*index;
+        int right = 2*index+1;
+        int min = index;
+        if(left<n && heapArr[left]<heapArr[min])
+            min = left;
+        if(right<n && heapArr[right]<heapArr[min])
+            min = right;
+        if(min != index){
+            swap(heapArr[index],heapArr[min]);
+            min_heapify(min);
+        }
+    }
+void minHeap::insert(int k){
+        if(n==NN) return;
+        n++;
+        heapArr[n]= k;
+        int p= n;
+        while(p>1){
+            int pr= p/2;
+            if(heapArr[pr]>heapArr[p]){
+                swap(heapArr[pr],heapArr[p]);
+                p= pr;
+            }
+            else break;
+        }
+}
+int minHeap::getMin(){
+    if(n==0) return -1;
+    else return heapArr[1];
+}
+
+int minHeap::removeMin(){
+    if(n==0){
+        cout<<"UnderFlow!! Heap is empty.\n";
+        return 0;
+    }
+    int k= heapArr[1];
+    heapArr[1]= heapArr[n];
+    n--;
+    int p=1;
+    while(2*p<=n){ //p is not in the last level
+        int ch= 2*p; //left child
+        if(heapArr[ch]>heapArr[ch+1]) ch++;
+        if(heapArr[p]>heapArr[ch]){
+            swap(heapArr[p],heapArr[ch]);
+            p= ch;
+        }
+        else break;
+    }
+    return k;
+}
+
+int minHeap::search(int ele){
+    for(int i=1;i<=n;i++){
+        if(heapArr[i] == ele)
+            return i;
+        }
+        return -1;
+    }
+
+void minHeap::deleteKey(int ele){
+        int index = search(ele);
+        heapArr[index] = heapArr[n];
+        n--;
+        min_heapify(index);
+}
+
+void minHeap::printHeap(){
+    if(n==0) cout<<"The Heap is empty!!\n";
+    else{
+        for(int i=1;i<=n;i++)
+            cout<<heapArr[i]<<" ";
+        cout<<endl;
+    }
+}
+
+int main(){
+    minHeap h;
+    int q, t, x;
+    cin>>q;
+    while(q--){
+        cin>>t;
+        if(t==1){
+            cin>>x;
+            h.insert(x);
+        }
+        else if(t==2){
+            cin>>x;
+            h.deleteKey(x);
+        }
+        else{
+            cout<<h.getMin()<<endl;
+        }
+    }
+}

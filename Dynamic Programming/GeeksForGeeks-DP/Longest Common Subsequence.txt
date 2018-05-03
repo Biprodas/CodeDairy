@@ -1,0 +1,28 @@
+#include<bits/stdc++.h>
+using namespace std;
+string A, B;
+int dp[101][101];
+
+int calcLCS(int i, int j){
+    if(A[i]=='\0' || B[j]=='\0') return 0;
+    if(dp[i][j]!=-1) return dp[i][j];
+    int res=0;
+    if(A[i]==B[j])
+        res= 1 + calcLCS(i+1,j+1);
+    else
+        res= max(calcLCS(i+1,j),calcLCS(i,j+1));
+    return dp[i][j]= res;
+}
+
+int main(){
+    int t, m , n;
+    cin>>t;
+    while(t--){
+        memset(dp,-1,sizeof(dp));
+        cin>>n>>m;
+        cin>>A>>B;
+        cout<<calcLCS(0,0)<<endl;
+    }
+}
+
+// http://practice.geeksforgeeks.org/problems/longest-common-subsequence/0

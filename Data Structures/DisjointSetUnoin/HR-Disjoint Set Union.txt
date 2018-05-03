@@ -1,0 +1,61 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define MX 1003
+int parent[MX];
+int sz[MX];
+int n;
+//NODE: 1, 2, 3, 4, 5.
+
+void initialize(){
+    for(int i=1;i<MX;i++){
+        parent[i]=i;
+        sz[i]=1;
+    }
+}
+int root(int r){
+    return parent[r] == r ? r : root(parent[r]);
+}
+bool isConnect(int A, int B){
+    return root(A)==root(B);
+}
+int connect(int A, int B){
+    parent[root(A)] = root(B);
+}
+void weightedConnect(int A, int B){
+    int root_A = root(A);
+    int root_B = root(B);
+    if(root_A == root_B) return ; //if A and B are connected
+    
+    if(sz[root_A] < sz[root_B ]){
+        parent[root_A] = root_B;
+        sz[root_B] += sz[root_A];
+        sz[root_A] = 0;
+    }
+    else{
+        parent[root_B] = root_A;
+        sz[root_A] += sz[root_B];
+        sz[root_B]=0;
+    }
+}
+void print(){
+    vector<int> v;
+    //sort(sz,sz+n+1);
+    for(int i=1;i<=n;i++) //NODE: 1, 2, 3, 4, 5.
+        if(sz[i]) v.push_back(sz[i]);
+        //cout<<sz[i]<<" ";
+    sort(v.begin(),v.end());
+    for(int i=0;i<v.size();i++) cout<<v[i]<<" ";
+    cout<<endl;
+}
+
+int main(){
+    //freopen("in.txt","r",stdin);
+    int m, x, y;
+    cin>>n>>m;
+    initialize();
+    while(m--){
+        cin>>x>>y;
+        weightedConnect(x,y);
+        print();
+    }
+}

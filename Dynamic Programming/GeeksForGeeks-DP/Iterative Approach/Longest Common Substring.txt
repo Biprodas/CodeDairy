@@ -1,0 +1,32 @@
+#include<bits/stdc++.h>
+using namespace std;
+string A, B;
+
+int LCSubStr(int n, int m){
+    int result=0;
+    int LCS[101][101];
+    for(int i=0; i<=n; i++){
+        for(int j=0; j<=m; j++){
+            if (i==0 || j==0)
+                LCS[i][j] = 0;
+            else if(A[i-1] == B[j-1]){
+                LCS[i][j] = LCS[i-1][j-1] + 1;
+                result = max(result, LCS[i][j]);
+            }
+            else LCS[i][j] = 0;
+        }
+    }
+    return result;
+}
+
+int main(){
+    int t, m , n;
+    cin>>t;
+    while(t--){
+        cin>>n>>m;
+        cin>>A>>B;
+        cout<<LCSubStr(n ,m)<<endl;
+    }
+}
+
+// http://practice.geeksforgeeks.org/problems/longest-common-substring/0

@@ -1,0 +1,152 @@
+Trees: Unlike Arrays, Linked Lists, Stack and queues, which are linear 
+       data structures, trees are hierarchical data structures.
+
+Binary Tree: A tree whose elements have at most 2 children is called a binary tree.
+
+A Binary Tree is a structure made of nodes, where each node has 3 components:
+-Data element
+-Left pointer
+-Right pointer
+
+struct Node {
+  int data;
+  struct Node *left;
+  struct Node *right;
+};
+struct Node* newNode(int data){
+  struct Node* node = (struct Node*)malloc(sizeof(struct Node));
+  node->data = data;
+  node->left = NULL;
+  node->right = NULL;
+  return(node);
+}
+
+or,----------------------------------------------
+class BinaryTree {
+    int data;
+    BinaryTree *left, *right;
+  public:
+    BinaryTree(int node_data) {
+        data = node_data;
+        left = NULL;
+        right = NULL;
+    }
+};
+===============================================
+//An example of using BinaryTree class:
+#include<bits/stdc++.h>
+using namespace std;
+
+class Node{
+    public:
+    int data;
+    Node *left, *right;
+  public:
+    Node(int new_data) {
+        data = new_data;
+        left = NULL;
+        right = NULL;
+    }
+};
+Node* insert(Node * root, int value){ //Insert in BST
+    if(!root) return new Node(value);
+    
+    if(value < root->data)
+        root->left = insert(root->left,value);
+    if(value > root->data)
+        root->right = insert(root->right,value);
+   return root;
+}
+int height(Node *root){
+    return (!root) ? 0 : 1+max(height(root->left), height(root->right));
+}
+
+int diameter(Node * tree){
+   if(!tree) return 0;
+   
+  int lheight = height(tree->left);
+  int rheight = height(tree->right);
+
+  int ldiameter = diameter(tree->left);
+  int rdiameter = diameter(tree->right);
+
+  return max(lheight + rheight + 1, max(ldiameter, rdiameter));
+}
+
+void LevelOrder(Node * root){
+  queue<Node *> q;
+    q.push(root);
+    Node* nd;
+    while(!q.empty()){
+        nd = q.front();
+        cout<<nd->data<<" ";
+        q.pop();
+        if(nd->left!=NULL)
+           q.push(nd->left);
+        if(nd->right!=NULL)
+           q.push(nd->right);
+    }
+}
+
+int main(){
+    int n, x, t;
+    string s;
+    cin>>n>>x; t= n-1;
+    Node *root= new Node(x);
+    while(t--){
+        Node *curNode= root; //each time start from root
+        cin>>s>>x;
+        int i=0;
+        while(s[i]){
+            if(s[i]=='L'){
+                if(curNode->left) curNode= curNode->left;
+                else  {
+                    curNode->left= new Node(0);
+                    curNode= curNode->left;
+                }
+            }
+            else{
+                if(curNode->right) curNode= curNode->right;
+                else {
+                    curNode->right= new Node(0);
+                    curNode= curNode->right;
+                }
+            }
+            i++;
+        }
+        if(curNode->data==0) curNode->data= x;
+    }
+    cout<<diameter(root)<<endl;
+    LevelOrder(root);
+}
+*/Input:
+15 1
+LLL
+2
+LL
+3
+L
+4
+RR
+5
+R
+6
+LLRLL
+7
+LLR
+8
+LLRL
+9
+LLRLR
+10
+LRRRR
+11
+LRRL
+12
+LRRR
+13
+LRR
+14
+LR
+15
+*/

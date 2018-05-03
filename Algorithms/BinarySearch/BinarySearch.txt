@@ -1,0 +1,47 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int arr[]={2, 10, 20, 50, 100, 100, 100, 150, 200, 500, 1000};
+int n= 11;
+
+//Iterative binary search function
+int binarySearch(int key){
+    int be = 0, en = n-1;
+
+    while(be <= en){
+        int mid= be + (en - be) / 2;
+        if(key == arr[mid])
+            return mid; 	//the value is found, return the index
+            
+        else if(key > arr[mid]) 
+            be= mid + 1; 	    //search for the right portion
+
+        else if(key < arr[mid])
+            en= mid - 1;	//search for the left portion
+    }
+
+    return -1;		    	//if the number is not found, index will return -1
+}
+
+//Recursive Binary Search function
+int binarySearch(int arr[], int be, int en, int key) {
+    if(be > en) return -1;	
+    
+    int mid = be + (en - be) / 2;
+    if(key == arr[mid]) 
+        return mid;
+        
+    else if (key > arr[mid]) 
+        return binarySearch(arr, mid+1, en, key);
+        
+    else if (key < arr[mid])
+		return binarySearch(arr, be, mid-1, key);
+}
+
+
+int main(){
+    //sort(ar,ar+n);
+    cout<<binarySearch(101)<<endl;
+    cout<<binarySearch(arr, 0, n-1, 101);
+    
+}

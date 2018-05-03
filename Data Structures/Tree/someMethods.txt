@@ -1,0 +1,28 @@
+int height(struct Node *root){
+    return (root==NULL) ? 0 : 1+max(height(root->left),height(root->right));
+}
+-----------------------------------------------------
+int diameter(struct Node * tree){
+   if(!tree) return 0;
+   
+  int lheight = height(tree->left);
+  int rheight = height(tree->right);
+
+  int ldiameter = diameter(tree->left);
+  int rdiameter = diameter(tree->right);
+
+  return max(lheight + rheight + 1, max(ldiameter, rdiameter));
+}
+
+-------------------------------------------------------
+node * insert(node * root, int value){ //Insert in BST
+    if(root==NULL)
+        return newNode(value);
+    
+    if(value < root->data)
+        root->left = insert(root->left,value);
+    if(value > root->data)
+        root->right = insert(root->right,value);
+   return root;
+}
+---------------------------------------------------------

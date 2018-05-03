@@ -1,0 +1,58 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define capacity 11
+int top=-1;
+int Stack[capacity];
+
+bool isEmpty();
+bool isFull();
+void push(int);
+int pop();
+int peek();
+void printStack();
+
+int main(void) {
+        push(5);
+        push(6);
+        push(3);
+        push(7);
+        printStack();
+        int pop_item=pop();
+        printf("Item poped %d\n",pop_item);
+        printf("STACK AFTER ALL OPeration:  ");
+        printStack();
+    // your code goes here
+    return 0;
+}
+// Stack is full when top is equal to the last index
+bool isFull(){
+    return top == capacity-1;
+}
+// Stack is empty when top is equal to -1
+bool isEmpty(){
+    return top == -1;
+}
+// Function to add an item to stack. It increases top by 1
+void push(int item){
+    if(isFull()) cout<<"stackoverflow";
+    else Stack[++top]=item;
+ }
+
+// Function to remove an item from stack. It decreases top by 1
+int pop(){
+    if(isEmpty()) cout<<"Stack Underflow";
+    else  return Stack[top--];
+ }
+// Function to get top item from stack
+int peek(){
+    if(isEmpty()) return cout<<"Stack Underflow",0;
+    return Stack[top];
+}
+//print all stack element
+void printStack(){
+    int i;
+    for(i=0;i<=top;i++)
+        cout<<Stack[i]<<" ";
+    cout<<endl;
+ }

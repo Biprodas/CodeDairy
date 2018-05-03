@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+int n;
+int compressed[1001];
+map<int, int> mp;
+void compress(int input[]){
+    int assign=0;
+    for(int i=0;i<n;i++){
+        int x= input[i];
+        if(mp.find(x)==mp.end()){ //not yet compressed
+           mp[x]= assign;
+           cout<<x<<" is assigned to "<<assign<<endl;
+           assign++;
+        }
+        compressed[i]= mp[x];
+    }
+}
+void printCompressed(){
+    cout<<"Compressed array: ";
+    for(int i=0;i<n;i++){
+        cout<<compressed[i]<<" ";
+    }
+}
+
+int main(){
+    int arr[]={-102,1,134565589,134565589,-102,66666668,134565589,66666668,-102,1,-2};
+    n= sizeof(arr)/sizeof(int);
+    compress(arr);
+    printCompressed();
+    return 0;
+}

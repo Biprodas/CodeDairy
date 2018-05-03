@@ -1,0 +1,7 @@
+# Simple DP format
+
+def function(state1, state2, ...., state_n)
+   Return if reached any base case
+   Check table and return if the value is already computed
+   Calculate the value recursive for this state
+   Save the value in the table and return

@@ -1,0 +1,41 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sc(x) scanf("%d", &x)
+#define scc(x, y) scanf("%d %d", &x, &y)
+#define lng long long
+
+int ar[100005], t, n, c;
+
+int place(int x){
+    //cout<<x<<endl;
+    int cowCnt = 1, pos = ar[0];
+    for(int i=1; i<n; i++){
+        if(ar[i]-pos >= x){
+            cowCnt++;
+            pos = ar[i];
+        }
+        if(cowCnt==c) return 1;
+    }
+    return 0;
+}
+
+int bs(){
+    int lo = 0, hi = ar[n-1];
+    while(lo<hi){
+        int mid = (lo+hi+1)/2;
+        if(place(mid)==0) hi = mid-1;
+        else lo = mid;
+    }
+    return lo;
+}
+
+int main(){
+    sc(t);
+    while(t--){
+        scc(n,c);
+        for(int i=0; i<n; i++) sc(ar[i]);
+        sort(ar,ar+n);
+        printf("%d\n", bs());
+    }
+    return 0;
+}

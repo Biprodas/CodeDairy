@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define maxN 100
+#define maxW 1000
+int n,cap;
+int wt[maxN+1];
+int cost[maxN+1];
+int dp[maxN+1][maxW+1];
+int dir[maxN+1][maxW+1];
+
+int knapsack(int i, int w){
+    if(i==n+1) //sob kicu naoa hoye gece
+        return 0;
+    if(dp[i][w]!= -1) //return saved value
+        return dp[i][w];
+
+    int profit_1 = 0, profit_2 = 0;
+    if(w+wt[i] <= cap)
+        profit_1 = cost[i] + knapsack(i+1, w+wt[i]);//try with next item
+    else
+        profit_2 = knapsack(i+1, w); //kono kicu na niyei next state a luv
+    //store the maximum profit
+    if(profit_1 > profit_2){
+        dp[i][w] = profit_1;
+        dir[i][w] = 1;
+    } 
+    else{
+        dp[i][w] = profit_2;
+        dir[i][w]= 2;
+    }
+    return dp[i][w];
+}
+
+void print(int i, int w){
+    if(dir[i][w]==-1) return;
+    if(dir[i][w]==1) {
+        cout<<i<<" ";
+        print(i+1, w+wt[i]);
+        //cout<<wt[i]<<" ";
+    }
+    if(dir[i][w]==2) print(i+1, w);
+}
+
+int main(){
+    //freopen("in.txt","r",stdin);
+    memset(dp,-1,sizeof(dp));
+    memset(dir,-1,sizeof(dp));
+    cin>>n>>cap;
+    for(int i=1;i<=n;i++)
+        cin>>wt[i]>>cost[i];
+    cout<<knapsack(1,0)<<endl; //1 based
+    print(1,0);
+    return 0;
+}

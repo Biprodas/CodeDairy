@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int ar[101];
+int dp[101];
+int n;
+
+int maxSum(int u){
+    if(dp[u]!=-1) return dp[u];
+    int mx=0;
+    for(int v=u+1;v<=n;v++){ 
+        if(ar[v]>ar[u]){
+            mx= max(mx, maxSum(v));
+        }
+    }
+    return dp[u]= ar[u] + mx;
+}
+
+int main(){
+    int t;
+    cin>>t;
+    while(t--){
+        cin>>n;
+        for(int i=1;i<=n;i++)
+            cin>>ar[i];
+        memset(dp,-1,sizeof(dp));
+        int MSIS=0;
+        for(int i=1;i<=n;i++){
+            if(MSIS<maxSum(i)){
+                MSIS= maxSum(i);
+            }
+        }
+        cout<<MSIS<<endl;
+    }
+
+}
+
+// http://practice.geeksforgeeks.org/problems/maximum-sum-increasing-subsequence/0

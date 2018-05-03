@@ -1,0 +1,15 @@
+//Almost same as min Heap. 
+void maxHeap::insert(int k){
+        if(n==NN) return;
+        n++;
+        heapArr[n]= k;
+        int p= n;
+        while(p>1){
+            int pr= p/2;
+            if(heapArr[pr]<heapArr[p]){
+                swap(heapArr[pr],heapArr[p]);
+                p= pr;
+            }
+            else break;
+        }
+}

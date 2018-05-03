@@ -1,0 +1,26 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int coin[]={5, 8, 11, 15, 18};
+int dp[6][101];
+
+int solve(int i, int amount){   //taking i'th coin
+    if(i==5) return (amount==0) ? 1 : 0;
+    if(dp[i][amount] != -1) return dp[i][amount];
+
+    int ans1 = 0, ans2 = 0;
+    if(amount - coin[i] >= 0)
+        ans1 = solve(i, amount-coin[i]);    //try to take coin i again
+    ans2 = solve(i+1, amount);  //don't take coin i. try next
+
+    return dp[i][amount] = (ans1 + ans2);   //how many time to make "make"
+}
+
+int main(){
+    memset(dp,-1,sizeof(dp));
+    int make;
+    while(cin>>make){
+        cout<<f(0,make); //0 based
+    }
+    return 0;
+}

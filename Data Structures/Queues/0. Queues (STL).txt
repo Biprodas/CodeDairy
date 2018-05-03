@@ -1,0 +1,33 @@
+-Based on FIFO (First In First Out) principles
+
+Queues mFunctions (cpp STL):
+   std::queue<int> q;
+    q.empty()  -Test whether container is empty
+    q.size()   -return size
+    q.push(x)   -insert element //enqueue
+    q.pop()    -remove next element //dequeue
+    q.front()  -access next element
+    q.back()   -access last element
+
+    q.emplace  -construct and insert element
+    q.swap     -swap contents
+ 
+priority_queue mFunctions (cpp STL):
+   std::priority_queue<int> pq;
+    q.empty()  -Test whether container is empty
+    q.size()   -return size
+    q.push(x)   -insert element //enqueue
+    q.pop()    -remove next element //dequeue
+    q.front()  -access next element
+    q.top()   -access last element
+
+    q.emplace  -construct and insert element
+    q.swap     -swap contents
+
+1. Double-ended-queque 
+2. Curcular-queue
+======
+-In Double Ended Queue both insertion and deletion
+ can be done at the front as well as at the end of the queue.
+
+mFunctions(STL):

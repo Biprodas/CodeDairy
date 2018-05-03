@@ -1,0 +1,17 @@
+Interesting Binary Search Problems:
+
+SPOJ:
+AGGRCOW - Aggressive cows
+
+
+UVa:
+10611 - The Playboy Chimp
+
+Light-OJ:
+1088 - Points in Segments
+1043 - Triangle Partitioning
+
+Codeforces:
+689 C. Mike and Chocolate Thieves
+670 D1,D2. Magic Powder - 1,2
+371 C. Hamburgers

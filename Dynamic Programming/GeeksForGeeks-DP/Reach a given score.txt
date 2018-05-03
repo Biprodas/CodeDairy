@@ -1,0 +1,31 @@
+//Coin Change problem
+#include<bits/stdc++.h>
+using namespace std;
+int point[3]= {3, 5, 10};
+int dp[3][1001];
+int t, n;
+
+int call(int i, int score){
+    if(i==3)  return score==0 ? 1 : 0 ;
+    if(dp[i][score]!=-1) return dp[i][score];
+
+    int res1=0, res2=0;
+    if(score - point[i] >= 0)
+        res1= call(i, score-point[i]); //try to take point i again
+    res2= call(i+1, score);   //don't take point i. try next
+
+    return dp[i][score]= res1 + res2; 
+}
+
+int main(){
+	memset(dp,-1,sizeof(dp));
+	cin>>t;
+	while(t--){
+	    cin>>n;
+	    cout<<call(0, n)<<endl;
+	}
+	
+	return 0;
+}
+
+// http://practice.geeksforgeeks.org/problems/reach-a-given-score/0

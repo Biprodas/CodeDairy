@@ -1,0 +1,79 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define NN 101 //Heap size
+
+struct minHeap{
+    int n; 		//number of nodes in heapArr
+    int heapArr[NN+1];	//array is 1 based
+    heap(){ clear(); }	//constructor
+    void clear(){ n=0; }
+    void insert(int k);
+    int remove();
+    int getMin();
+    void printHeap();
+};
+void minHeap::insert(int k){
+        if(n==NN){
+            cout<<"OverFlow!! Heap is full.\n";
+            return;
+        }
+        n++;
+        heapArr[n]= k;
+        int p= n;
+        while(p>1){
+            int pr= p/2;
+            if(heapArr[pr]>heapArr[p]){
+                swap(heapArr[pr],heapArr[p]);
+                p= pr;
+            }
+            else break;
+        }
+}
+int minHeap::getMin(){
+    if(n==0) return cout<<"There is no element in Heap.\n",-1;
+    else return heapArr[1];
+}
+int minHeap::remove(){
+    if(n==0){
+        cout<<"UnderFlow!! Heap is empty.\n";
+        return 0;
+    }
+    int k= heapArr[1];
+    heapArr[1]= heapArr[n];
+    n--;
+    int p=1;
+    while(2*p<=n){ //p is not in the last level
+        int ch= 2*p; //left child
+        if(heapArr[ch]>heapArr[ch+1]) ch++;
+        if(heapArr[p]>heapArr[ch]){
+            swap(heapArr[p],heapArr[ch]);
+            p= ch;
+        }
+        else break;
+    }
+    return k;
+}
+void minHeap::printHeap(){
+    if(n==0) cout<<"The Heap is empty!!\n";
+    else{
+        for(int i=1;i<=n;i++)
+            cout<<heapArr[i]<<" ";
+        cout<<endl;
+    }
+}
+
+int main(){
+    minHeap hp;
+    hp.insert(4); hp.printHeap();
+    hp.insert(5); hp.printHeap();
+    hp.insert(3); hp.printHeap();
+    hp.insert(2); hp.printHeap();
+    hp.insert(8); hp.printHeap();
+    hp.insert(9); hp.printHeap();
+    hp.insert(6); hp.printHeap();
+    hp.insert(1); hp.printHeap();
+    hp.remove(); hp.printHeap();
+    hp.remove(); hp.printHeap();
+    hp.remove(); hp.printHeap();
+}

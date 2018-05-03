@@ -1,0 +1,27 @@
+//Fibonacci Problem
+#include<bits/stdc++.h>
+using namespace std;
+#define lng long long
+#define MOD 1000000007
+int dp[10004];
+int t, n, m;
+
+int tiling(int n){
+    if (n < m) return 1;
+    if (n == m) return 2;
+    if(dp[n] != -1) return dp[n];
+    return dp[n]= (tiling(n-1) + tiling(n-m)) % MOD;
+}
+
+int main(){
+	cin>>t;
+	while(t--){
+	    memset(dp, -1, sizeof(dp));
+	    cin>>n>>m;
+	    cout<<tiling(n)<<endl;
+	}
+	
+	return 0;
+}
+
+// http://practice.geeksforgeeks.org/problems/count-the-number-of-ways-to-tile-the-floor-of-size-n-x-m-using-1-x-m-size-tiles/0

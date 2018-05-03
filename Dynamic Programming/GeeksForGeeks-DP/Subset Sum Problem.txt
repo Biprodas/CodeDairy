@@ -1,0 +1,36 @@
+//Coin Change problem
+#include<bits/stdc++.h>
+using namespace std;
+
+int ar[102];
+int dp[102][10005];
+int t, n;
+
+int isSubSetSum(int i, int sum){
+    if(i==n) return sum==0 ? 1 : 0 ;
+    if(dp[i][sum]!=-1) return dp[i][sum];
+
+    int ret1=0, ret2=0;
+    if(sum - ar[i] >= 0)
+        ret1= isSubSetSum(i+1, sum-ar[i]);
+    ret2= isSubSetSum(i+1, sum);
+    
+    return dp[i][sum]= ret1||ret2;
+}
+
+int main(){
+    cin>>t;
+    while(t--){
+        cin>>n;
+        int make=0;
+        for(int i=0;i<n;i++){
+            cin>>ar[i];
+            make+=ar[i];
+        }
+        memset(dp,-1,sizeof(dp));
+        make & 1 ? cout<<"NO\n" :
+        isSubSetSum(0, make/2) ? cout<<"YES\n" : cout<<"NO\n";
+    }
+}
+
+//http://practice.geeksforgeeks.org/problems/subset-sum-problem/0

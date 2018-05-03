@@ -1,0 +1,40 @@
+#include<bits/stdc++.h>
+using namespace std;
+string A, B, C;
+int dp[101][101][101];
+
+int max(int a, int b, int c){
+    int m = a;
+    if(m<b) m=b;
+    if(m<c) m=c;
+    return m;
+}
+
+int calcLCS(int i, int j, int k){
+    if(A[i]=='\0' || B[j]=='\0' || C[k]=='\0') return 0;
+    if(dp[i][j][k] != -1) return dp[i][j][k];
+    int res=0;
+    if(A[i]==B[j] && A[i]==C[k])
+        res= 1 + calcLCS(i+1, j+1, k+1);
+    else
+        res= max(calcLCS(i+1,j, k),
+                 calcLCS(i,j+1, k),
+                 calcLCS(i, j, k+1)
+                );
+    return dp[i][j][k]= res;
+}
+
+int main(){
+	int t, n, m, l;
+	cin>>t;
+	while(t--){
+	    memset(dp,-1,sizeof(dp));
+	    cin>>n>>m>>l;
+	    cin>>A>>B>>C;
+	    cout<<calcLCS(0, 0, 0)<<endl;
+	}
+	
+	return 0;
+}
+
+// http://practice.geeksforgeeks.org/problems/lcs-of-three-strings/0

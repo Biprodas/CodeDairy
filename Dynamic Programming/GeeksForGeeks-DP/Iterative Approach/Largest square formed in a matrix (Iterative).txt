@@ -1,0 +1,40 @@
+// C++ code for Maximum size square sub-matrix with all 1s
+#include<bits/stdc++.h>
+using namespace std;
+int grid[55][55];
+int t, n, m, mx;
+
+int min(int a, int b, int c){
+    int m = a;
+    if (m > b) m = b;
+    if (m > c) m = c;
+    return m;
+}
+
+void maxSquareSubMatrix() {
+    for (int i=1; i<n; i++){
+        for (int j=1; j<m; j++){
+            if (grid[i][j] == 1) 
+                grid[i][j] = 1 + min(grid[i][j-1], grid[i-1][j], grid[i-1][j-1]);
+            mx= max(mx, grid[i][j]);
+        }    
+    }
+}
+   
+int main(){
+    cin>>t;
+    while(t--){
+        cin>>n>>m;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<m;j++){
+                cin>>grid[i][j];
+                if(grid[i][j]==1) mx= 1;
+            }
+        }
+        maxSquareSubMatrix();
+        cout<<mx<<endl;
+    }
+
+}  
+
+// http://practice.geeksforgeeks.org/problems/largest-square-formed-in-a-matrix/0
