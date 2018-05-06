@@ -12,7 +12,6 @@ using namespace std;
 #define SCC(n, m)	scanf("%I64d %I64d", &n, &m)
 #define vanish		scanf("\n")
 
-
 /*** STL ***/
 #define pii	pair<int, int>
 #define pll	pair<lng, lng>
@@ -33,14 +32,12 @@ using namespace std;
 #define itr_all(v,itr) for(__typeof((v).begin()) itr=(v).begin();itr!=(v).end();itr++)
 
 /*** Bits ***/
-#define on(n, pos)	(n | (1<<(pos)))
-#define off(n, pos)	(n & ~(1<<(pos)))
-#define check(n, pos)	(bool)(n & (1<<(pos)))
-
-#define POPCOUNT	__builtin_popcountll
-#define RIGHTMOST	__builtin_ctzll
-#define LEFTMOST(x)	(63-__builtin_clzll((x)))
-
+#define on(n, pos)      (n | (1<<(pos)))
+#define off(n, pos)     (n & ~(1<<(pos)))
+#define check(n, pos)   (bool)(n & (1<<(pos)))
+#define POPCOUNT        __builtin_popcountll
+#define RIGHTMOST       __builtin_ctzll
+#define LEFTMOST(x)     (63-__builtin_clzll((x)))
 
 #define MS(x, v)	memset(&x, v, sizeof(x))
 #define CL(x)		memset(&x, 0, sizeof(x))
@@ -48,46 +45,40 @@ using namespace std;
 #define FABS(x)		((x)+eps<0?-(x):(x))
 #define CASE(i)		printf("Case %d: ", i);
 
-
 /*** Iteration ***/
-#define Iterator(s)	for (typeof(s.begin()) it=s.begin(); it!=s.end(); it++)
-#define repstl(it, xx)	for(auto it = xx.begin(); it != xx.end(); it++)
-#define rrepstl(it, x)	for(auto it = x.rbegin(); it != x.rend(); it++)
-#define For(i, k, n)	for (i=k; i<=n; i++)
-#define rep(i, n)	for (i=0; i<n; i++)
-#define rrep(i, n)     for (i=n-1; i>=0;i--)
-
+#define Iterator(s)     for(typeof(s.begin()) it=s.begin(); it!=s.end(); it++)
+#define repstl(it, xx)  for(auto it = xx.begin(); it != xx.end(); it++)
+#define rrepstl(it, x)  for(auto it = x.rbegin(); it != x.rend(); it++)
+#define For(i, k, n)    for (i=k; i<=n; i++)
+#define rep(i, n)       for(i=0; i<n; i++)
+#define rrep(i, n)      for (i=n-1; i>=0;i--)
 
 /*** Direction Arrays ***/
-int knightx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
-int knighty[] = {-1, 0, 1, -1, 1, -1, 0, 1};
-
 int floodx[] = {1, -1, 0, 0};
 int floody[] = {0, 0, 1, -1};
+int kingx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+int kingy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+int knightx[] = {-2, -2, +2, +2, +1, -1, +1, -1};
+int knighty[] = {+1, -1, +1, -1, -2, -2, +2, +2};
 
-int kx[] = {-2, -2, +2, +2, +1, -1, +1, -1};
-int ky[] = {+1, -1, +1, -1, -2, -2, +2, +2};
-
-#define EPS	1e-9
-#define PI	acos(-1.0)
-#define inf	1 << 30 //0x3f3f3f3f 
-#define INF	1LL << 60;
+/*** Constants ***/
+#define EPS     1e-9
+#define PI      acos(-1.0)
+#define inf     1 << 30 //0x3f3f3f3f 
+#define INF	    1LL << 60;
 #define DINF	(double)INF;
-#define MAX	2e18
-#define MOD	1000000007
+#define MAX	    2e18
+#define MOD	    1000000007
 
-#define lng	long long
+#define lng	    long long
 #define ulng	unsigned long long
 
-#define  segtree   int lft = node << 1; int rgt = lft | 1; int mid = (b + e) >> 1;
-#define on(n, pos)	(n | (1<<(pos)))
-#define off(n, pos)	(n & ~(1<<(pos)))
-#define check(n, pos)	(bool)(n & (1<<(pos)))
-
+#define segtree   int lft = node << 1; int rgt = lft | 1; int mid = (b + e) >> 1;
 #define NUMDIGIT(x,y)			(((vlong)(log10((x))/log10((y))))+1)
 #define DIST(x1,x2, y1, y2)		(((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)))
 #define DIST3D(x1,x2, y1, y2, z1, z2)	(((x1-x2)*(x1-x2))+((y1-y2)*(y1-y2)) + ((z1-z2)*(z1-z2)))
 
+/*** Methods ***/
 bool iseq(double a, double b){return fabs(a-b)<EPS;}
 template<class T> inline void IO(T &x){char c=getchar();T sgn=1;while(c<'0' || c>'9'){if (c=='-') sgn=-1;c=getchar();}x=0;while(c>='0' && c<='9'){x=(T)(x<<1)+(x<<3)+c-'0';c=getchar();}x*=sgn;}
 template<class T> T POW(T b, T p){T res=1;while(p>0){if (p&1) res*=b;p >>= (1ll), b*=b;}return res;}
