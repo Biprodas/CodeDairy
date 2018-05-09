@@ -1,0 +1,5 @@
+UVa- 10684 - The jackpot
+UVa- 507 - Jill Rides Again
+UVa- 787 - Maximum Sub-sequence Product
+UVa- 10755 - Garbage Heap
+SPOJ- HOTELS - Hotels Along the Croatian Coast

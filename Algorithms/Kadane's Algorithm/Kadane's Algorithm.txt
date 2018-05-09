@@ -1,0 +1,41 @@
+//Largest Sum Contiguous Subarray
+//Find Largest Sum 
+int maxSubArraySum(int ar[], int size){
+
+    int max_so_far = ar[0];
+
+    int curr_max = ar[0];
+
+ 
+   for(int i=1; i<size; i++){
+
+        curr_max= max(ar[i], curr_max+ar[i]);
+
+        max_so_far= max(max_so_far, curr_max);
+
+    }
+
+    return max_so_far;
+
+}
+
+//Find Largest Sum and Segment
+int maxSubArraySum(int ar[], int size){
+    int max_so_far = ar[0],
+        curr_max = ar[0],
+        start = 0, end = 0;
+ 
+    for(int i=1; i<size; i++){
+        curr_max += ar[i];
+        if (curr_max < ar[i]){
+            curr_max = ar[i];
+            start = i;
+        }
+        if (max_so_far < curr_max){
+            max_so_far = curr_max;
+            end = i;
+        }
+    }
+    cout << "Maximum contiguous sum is "<< max_so_far << endl;
+    cout << "Starting index "<< start<< endl << "Ending index "<< end << endl;
+}

@@ -1,0 +1,66 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+/* Link list node */
+struct Node{
+	int data;
+	struct Node* next;
+};
+
+void push(struct Node** head_ref, int new_data)
+{
+    struct Node* new_node = (struct Node*) malloc(sizeof(struct Node));
+
+    new_node->data= new_data;
+    /* link the old list off the new node */
+    new_node->next= (*head_ref);
+    /* move the head to point to the new node */
+    (*head_ref)= new_node;
+}
+Node* detectCycle(Node* head) 
+{
+    if(!head->next) return NULL;
+
+    Node *tortoise= head; //slow
+    Node *hare= head; //fast
+
+    //check if there is a cycle
+    while(hare){
+        //hare->next->next ?  hare= hare->next->next : return NULL;
+        if(hare->next and hare->next->next)
+            hare=hare->next->next;
+        else
+            return NULL; //no cycle
+        tortoise= tortoise->next;
+        if(hare==tortoise) break; //cycle exists
+    }
+
+    Node* tortoise2 = head;
+    while(tortoise2 != tortoise){
+        tortoise2 = tortoise2->next;
+        tortoise = tortoise->next;
+    }
+    return tortoise;
+}
+void print(Node* head)
+{
+    Node *curNode= head;
+    int n=17;
+    while(curNode){
+         cout<<curNode->data<<' ';
+         curNode= curNode->next;
+    }
+    cout<<endl;
+}
+int main(){
+	struct Node* head = NULL; // Start with the empty list
+    for(int i=9;i>0;i--) push(&head, i);
+    //list: 1->2->3->4->5->6->7->8->9
+	print(head);
+	/* Create a loop (9->3) for testing */
+	head->next->next->next->next->next->next->next->next->next = head->next->next;
+	Node* ans= detectCycle(head);
+	cout<<ans->data;
+
+	return 0;
+}
