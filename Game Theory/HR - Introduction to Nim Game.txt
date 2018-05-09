@@ -1,0 +1,21 @@
+//Nim Game
+#include<bits/stdc++.h>
+using namespace std;
+#define sc(x) scanf("%d", &x)
+#define scc(x, y) scanf("%d %d", &x, &y)
+#define lng long long
+
+int main(){
+    int t, n, x;
+    sc(t);
+    while(t--){
+        sc(n);
+        int xorSum = 0;
+        while(n--){
+            sc(x);
+            xorSum ^= x;
+        }
+        xorSum > 0 ? puts("First") : puts("Second");
+    }
+    return 0;
+}

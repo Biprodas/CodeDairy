@@ -1,0 +1,25 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sc(x) scanf("%d", &x)
+#define scc(x, y) scanf("%d %d", &x, &y)
+#define lng long long
+
+int dp[105];
+
+int canWin(int n){
+    if(n<2) return dp[n]=0;
+    if(dp[n]!=-1) return dp[n];
+    return dp[n] = (canWin(n-2)==0 || canWin(n-3)==0 || canWin(n-5)==0);
+}
+
+int main(){
+    memset(dp,-1,sizeof(dp));
+    canWin(103);
+    int t, n;
+    sc(t);
+    while(t--){
+        sc(n);
+        dp[n] ? puts("First") : puts("Second");
+    }
+    return 0;
+}

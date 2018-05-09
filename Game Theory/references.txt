@@ -1,0 +1,22 @@
+http://www.shafaetsplanet.com/?p=2325
+http://www.shafaetsplanet.com/?p=2608
+http://www.shafaetsplanet.com/?p=2714
+
+http://www.suhendry.net/blog/?p=1612
+
+problems:
+https://www.hackerrank.com/domains/algorithms/game-theory/1
+
+https://www.cs.umd.edu/~gasarch/COURSES/250/S15/nimnotes.pdf
+
+https://www.math.ucla.edu/~tom/Game_Theory/comb.pdf
+https://www.math.ucla.edu/~tom/Game_Theory/sol1.pdf
+
+
+Variations:
+- Nim Game
+- Misere Nim
+- Prime power game
+- Nimble
+- Matrix Game
+- Pokar Nim

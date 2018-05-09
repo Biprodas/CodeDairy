@@ -1,0 +1,23 @@
+//Misere Nim
+#include<bits/stdc++.h>
+using namespace std;
+#define sc(x) scanf("%d", &x)
+#define scc(x, y) scanf("%d %d", &x, &y)
+#define lng long long
+
+int main(){
+    int t, n, x;
+    sc(t);
+    while(t--){
+        sc(n);
+        int xorSum = 0, cnt=0;
+        for(int i=0;i<n;i++){
+            sc(x);
+            if(x==1) cnt++;
+            xorSum ^= x;
+        }
+        if(n==cnt) n&1 ? puts("Second") : puts("First");
+        else xorSum > 0 ? puts("First") : puts("Second");
+    }
+    return 0;
+}

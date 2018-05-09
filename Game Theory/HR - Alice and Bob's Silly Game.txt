@@ -1,0 +1,37 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define sc(x) scanf("%d", &x)
+#define scc(x, y) scanf("%d %d", &x, &y)
+#define maxN 100005
+
+vector<bool> winner(maxN);
+bool flag = false;
+
+void preSolved(){
+    winner[0] = winner[1]  = false;
+    for(int a=2; a<maxN; a++){
+        bool div = false;
+        for(int b=2; b*b <= a; b++){
+            if(a%b==0){
+                div = true; 
+                break;
+            }
+        }
+        if(div) winner[a] = flag;
+        else{
+            flag = !flag;
+            winner[a] = flag;
+        }
+    }
+}
+
+int main(){
+    preSolved();
+    int t, n;
+    sc(t);
+    while(t--){
+        sc(n);
+        winner[n] ? puts("Alice") : puts("Bob");
+    }
+    return 0;
+}
