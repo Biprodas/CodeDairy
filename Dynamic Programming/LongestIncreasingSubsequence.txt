@@ -1,0 +1,50 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int value[]={-100001,5,0,9,2,7,3,4};
+int dp[1001], dir[1001];
+int n=7;
+
+int longest(int u){
+    if(dp[u]!=-1)
+        return dp[u];
+    int mx=0;
+    for(int v=u+1;v<=n;v++){ //1. u theke v te jaoa jabe jodi, v>u, 
+        if(value[v]>value[u]){//2. and value[v]>value[u] hoy.
+            if(longest(v)>mx){
+                mx= longest(v); //sorbcco man ta nibo
+                dir[u]= v;
+            }
+        }
+    }
+    return dp[u]= 1+mx;
+}
+
+void printSoln(int start){
+    int i=start;
+    cout<<"Direction Index: "<<start;
+    while(dir[start]!=-1){
+        cout<<"->"<<dir[start];
+        start= dir[start];
+    }
+    cout<<"\nLIS: "<<value[i];
+    while(dir[i]!=-1){
+        i=dir[i];
+        cout<<"->"<<value[i];
+    }
+}
+
+int main(){
+    memset(dp,-1,sizeof(dp));
+    memset(dir,-1,sizeof(dir));
+    int LIS=0, start;
+    for(int i=1;i<=n;i++){
+        if(LIS<longest(i)){
+            LIS= longest(i);
+            start=i;
+        }
+    }
+    cout<<"LIS Length: "<<LIS<<".\nStarting point: "<<start<<endl;
+    printSoln(start);
+}
+

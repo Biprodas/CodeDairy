@@ -1,0 +1,28 @@
+//LIKE COIN CHANGE PROBLEM
+#include<bits/stdc++.h>
+using namespace std;
+int arr[]={ 3, 34, 4, 12, 15, 2 };
+int dp[7][100];
+
+//RECURSIVE APPROACH
+int isSubSetSum(int i, int amount){
+    if(i==6) return amount==0 ? 1 : 0 ;
+    if(dp[i][amount]!=-1)
+        return dp[i][amount];
+
+    int ret1=0, ret2=0;
+    if(ammount-arr[i]>=0)
+        ret1 = isSubSetSum(i+1, amount-arr[i]);
+    ret2 = isSubSetSum(i+1, amount);
+
+    return dp[i][amount] = ret1||ret2;
+}
+
+int main(){
+    memset(dp,-1,sizeof(dp));
+    int a;
+    while(cin>>a){
+      cout<<isSubSetSum(0,a)<<endl;
+    }
+    return 0;
+}

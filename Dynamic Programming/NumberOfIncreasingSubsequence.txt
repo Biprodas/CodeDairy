@@ -1,0 +1,27 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+int value[]={-100001,5,0,9,2,7,3,4};
+int dp[1001];
+int n=7;
+
+int numIS(int u){	//return the number of IS from node u
+    if(dp[u]!=-1)
+        return dp[u];
+    int ans=0;
+    for(int v=u+1; v<=n && value[v]>value[u]; v++){
+               ans += 1 + numIS(v);
+    }
+    return dp[u]= ans;
+}
+
+int main(){
+    memset(dp,-1,sizeof(dp));
+    int ans=0;
+    for(int i=1;i<=n;i++){
+        cout<<i<<"->"<<numIS(i)<<endl;
+        ans+= numIS(i);
+    }
+    cout<<"Number of IS: "<<ans;
+}
+

@@ -1,0 +1,25 @@
+LOJ- 1006 - Hex-a-bonacci		[Fibonacci]
+UVa- 10130 - SuperSale			[0-1 Knapsack]
+LOJ- 1231 - Coin Change (I)		[Coin Change]
+LOJ- 1004 - Monkey Banana Problem	[Rock Climbing]
+Uva- 11137: Ingenuous Cubrency		[Coin Change]
+*UVa- 11331 - The Joys of Farming	[Knapsack+Bicoloring]
+CF - 118D: Caesar’s Legions		[4 state DP]
+*LOJ- 1047: Neighbor House 
+*Timus 1017: Staircases
+*UVa- Diving for gold
+*Timus- Sense of Beauty
+*Timus- Bicolored Horses
+*UVa-Testing the CATCHER 
+UVa-How Many Dependencies?		[LIS]
+UVa-Longest Path			[LIS]
+SPOJ- MIXTURES - Mixtures		[Matrix-Chain-Multiplication]
+*UVa- 10003 - Cutting Sticks		[MCM]
+
+Bitmask DP:
+------------
+*UVa 10651
+*LOJ- Pimp My Ride
+*Timus- False Mirror
+*LOJ- Agent 47
+*LOJ- Painful Bases

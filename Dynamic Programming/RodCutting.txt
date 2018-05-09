@@ -1,0 +1,24 @@
+#include<bits/stdc++.h>
+using namespace std;
+int price[] = {0, 1, 5, 8, 9, 10, 17, 17, 20, 24, 30};
+int dp[100];
+int ans = -1;
+
+int cutRod(int n){
+    if(n==0) return 0;
+    if(dp[n]!=-1) return dp[n];
+
+    for(int i=1; i<=n; i++)
+        ans = max(ans, price[i]+cutRod(n-i));
+
+    return dp[n]= ans; //save and return
+}
+
+int main(){
+    memset(dp,-1,sizeof(dp));
+    int n;
+    while(cin>>n){
+        cout<<cutRod(n)<<endl;
+    }
+    return 0;
+}

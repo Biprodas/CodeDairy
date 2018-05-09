@@ -1,0 +1,31 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define maxN 1000
+
+int row[maxN],col[maxN];
+int dp[maxN][maxN];
+bool visited[maxN][maxN];
+//int arr[]={30, 35, 15, 5, 10, 20, 25};
+
+int solve(int be, int en){
+    if (be >= en) return 0;
+    if (visited[be][en])
+        return dp[be][en];
+    int ans= INT_MAX;
+    for(int mid=be; mid<en; mid++){
+        int total = solve(be, mid) + solve(mid+1, en) + row[be]*col[mid]*col[en];
+        //int total = solve(bg, mid) + solve(mid+1, ed) + arr[be-1]*arr[mid]*arr[en];
+        ans = min(ans, total);
+    }
+    visited[be][en]= 1;
+    return dp[be][en]= ans;
+}
+
+int main(){
+    //freopen("in.txt","r",stdin);
+    int n;
+    cin>>n;
+    for(int i=0;i<n;i++)
+        cin>>row[i]>>col[i];
+    cout<<solve(0, n-1); //beg=0, end=n-1
+}
