@@ -1,6 +1,6 @@
 //lower_bound(arr, arr+n, key);
 int binaryLeft(int* arr, int key){
-    int lo=0, hi=n-1, mid;
+    int lo=0, hi=n-1;
     int idx=lo;
     while(lo<=hi){
         int mid= lo+(hi-lo)/2;
@@ -15,7 +15,7 @@ int binaryLeft(int* arr, int key){
 
 //upper_bound(arr, arr+n, key);
 int binaryRight(int* arr, int key){
-    int lo=0, hi=n-1, mid;
+    int lo=0, hi=n-1;
     int index= n;
     while(lo<=hi){
         int mid= lo+(hi-lo)/2;
