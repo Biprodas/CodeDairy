@@ -1,0 +1,26 @@
+//INPUT A GRAPH USING "ADJECENCY MATRIX"
+#1. If the Number of NODE and the matrix is given:
+int node; //number of node.
+int m[100][100]; //can be stored maximum 100 nodes
+int main(){
+    cin>>node;
+    for(int i=1;i<=node;i++){
+        for(int j=1;j<=node;j++)
+            cin>>m[i][j];
+    }
+}
+
+#2. If number of Edge and the Edges are given:
+int edge; //number of edge.
+int m[100][100]; //can be stored maximum 100 nodes
+int main(){
+    int node1, node2, cost;
+    cin>>edge;
+    for(int i=0;i<edge;i++){
+        cin>>node1>>nod2>>cost;
+        m[node1][node2]= cost;
+        m[node2][node1]= cost; //we know undirected graph are symetric
+    }
+}
+Disadventage: A huge memory waste.
+-------------------------------------------------

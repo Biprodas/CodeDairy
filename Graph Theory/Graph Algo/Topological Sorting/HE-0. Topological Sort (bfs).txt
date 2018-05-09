@@ -1,0 +1,56 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define lng long long
+#define MX 150005
+#define pb push_back
+
+vector<int> G[MX], T;
+//queue<int> q; //if ask for any order sorting
+priority_queue<int,vector<int>,greater<int> > pq; //for lexicographically sorting
+bool vis[MX];
+int inDegree[MX];
+
+void inDeg(int N){
+    memset(inDegree,0,sizeof(inDegree));
+     for(int i=1;i<=N;i++){
+        for(int j=0;j<G[i].size();j++)
+            inDegree[G[i][j]]++;
+     }
+     for(int i=1;i<=N;i++){
+         if(inDegree[i]==0){
+              pq.push(i);
+              vis[i]=true;
+         }
+        //cout<<"Node "<<i<<" InDegree: "<<inDegree[i]<<"\n";
+     }
+}
+void TopologicalSort(){
+    while(!pq.empty()){
+        int u= pq.top(); pq.pop();
+        T.pb(u);
+        for(int i=0;i<G[u].size();i++){
+            int v= G[u][i];
+            if(!vis[v]){
+                inDegree[v] -= 1;
+                if(inDegree[v]==0){
+                    pq.push(v);
+                    vis[v]=true;
+                }
+            }
+        }
+    }
+}
+
+int main()
+{
+    int V, E, u, v;
+    cin>>V>>E;
+    for(int i=1;i<=E;i++){
+        cin>>u>>v;
+        G[u].pb(v);
+    }
+    inDeg(V);
+    TopologicalSort();
+    for(int i=0;i<V;i++) cout<<T[i]<<" ";
+    return 0;
+}

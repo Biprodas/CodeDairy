@@ -1,0 +1,68 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define pii pair<int, int>
+#define mp make_pair
+int a[1002][1002],n,m,cnt;
+stack<pii> st;
+bool ok(int x, int y){
+	if (x>=0 && x<n && y>=0 && y<m) return true;
+	return false;
+}
+void push(int x, int y){
+	cnt++;
+	st.push(mp(x,y));
+	a[x][y]= 0;
+}
+int dfs(int x, int y){
+	cnt=0;
+	push(x,y);
+	while (!st.empty()){
+		pii pp= st.top();
+		st.pop();
+		x= pp.first, y= pp.second;
+		if (ok(x-1,y) && a[x-1][y]==1)
+			push(x-1,y);
+		if (ok(x-1,y-1) && a[x-1][y-1]==1)
+			push(x-1,y-1);
+		if (ok(x,y-1) && a[x][y-1]==1)
+			push(x,y-1);
+		if (ok(x+1,y) && a[x+1][y]==1)
+			push(x+1,y);
+		if (ok(x+1,y+1) && a[x+1][y+1]==1)
+			push(x+1,y+1);
+		if (ok(x,y+1) && a[x][y+1]==1)
+			push(x,y+1);
+		if (ok(x-1,y+1) && a[x-1][y+1]==1)
+			push(x-1,y+1);
+		if (ok(x+1,y-1) && a[x+1][y-1]==1)
+			push(x+1,y-1);
+	}
+	
+}
+
+int main(){
+    int t;
+    cin>>t;
+
+    while(t--){
+    	cin>>n>>m;
+	    for(int i=0; i<n; i++)
+	    	for(int j=0; j<m; j++)
+		    cin>>a[i][j];
+
+	int troops=0, mx=0;
+    	for(int i=0; i<n; i++)
+	    	for(int j=0; j<m; j++){
+	    		if(a[i][j]==1){
+		    	    dfs(i,j);
+			    	mx= max(mx, cnt);
+			    	troops++;
+		    	}
+		}
+    	cout<<troops<<" "<<mx<<endl;
+    }
+
+    return 0;
+}
+
+//Problem-Link: https://www.hackerearth.com/practice/algorithms/graphs/breadth-first-search/practice-problems/algorithm/oliver-and-the-battle-1/

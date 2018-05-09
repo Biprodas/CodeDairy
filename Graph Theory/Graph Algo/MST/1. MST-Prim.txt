@@ -1,0 +1,75 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define lng long long
+#define pii pair<lng, int>
+#define mp make_pair
+#define pb push_back
+#define MX 1003
+
+bool visited[MX];
+vector<pii> adj[MX];
+
+lng mstPrim(int x){
+    priority_queue<pii,vector<pii>,greater<pii>> pq;
+    int y;
+    lng minCost=0;
+    pq.push(mp(0,x));
+    while(!pq.empty()){
+        pii p= pq.top(); pq.pop();
+        x= p.second;
+        if(visited[x]) //checking for cycle
+            continue;
+        minCost += p.first;
+        visited[x]= true;
+        for(int i=0;i<adj[x].size();i++){
+            int y= adj[x][i].second;
+            if(!visited[y])
+                pq.push(adj[x][i]);
+        }
+    }
+    return minCost;
+}
+
+int main(){
+    //freopen("in.txt","r",stdin);
+    int nodes, edges, x, y;
+    lng w, minCost;
+    cin>>nodes>>edges;
+    for(int i=0;i<edges;i++){
+        cin>>x>>y>>w;
+        adj[x].pb(mp(w,y));
+        adj[y].pb(mp(w,x));
+    }
+    minCost= mstPrim(1);
+    cout<<minCost;
+return 0;
+}
+/*
+Input:
+8 11
+1 5 2
+1 4 10
+1 2 4
+5 4 5
+4 7 11
+4 2 8
+2 3 18
+4 3 11
+4 8 9
+8 6 2
+7 6 1
+
+Steps:
+1. Maintain two disjoint sets of vertices. One containing vertices that are in the 
+growing spanning tree and other that are not in the growing spanning tree.
+2. Select the cheapest vertex that is connected to the growing spanning tree and is not in the 
+growing spanning tree and add it into the growing spanning tree. This can be done using Priority 
+Queues. Insert the vertices, that are connected to growing spanning tree, into the Priority Queue.
+3. Check for cycles. To do that, mark the nodes which have been already selected and 
+insert only those nodes in the Priority Queue that are not marked.
+
+Time Complexity:
+The time complexity of the Prim’s Algorithm is: O((V+E)logV)
+O((V+E)logV) because each vertex is inserted in the priority queue only once 
+and insertion in priority queue take logarithmic time.
+*/

@@ -1,0 +1,58 @@
+//DTERMINE LEVEL OF EACH NODE
+#include<bits/stdc++.h>
+using namespace std;
+#define MX 101
+vector<int> edges[MX];
+int level[MX];
+int parent[MX];
+bool vis[MX];
+
+void bfs(int s){ //source node
+    queue<int> q;
+    q.push(s);
+    level[s]=0;
+    parent[s]=0;
+    vis[s]=true;
+    while(!q.empty()){
+        int p = q.front();
+        q.pop(); //delete the front element from queue
+        for(int i=0;i<edges[p].size();i++){
+            if(!vis[edges[p][i]]){
+                q.push(edges[p][i]);
+                level[edges[p][i]]=level[p]+1;
+                parent[edges[p][i]]=p;
+                vis[edges[p][i]]=true;
+            }
+
+        }
+    }
+}
+//Find the shortest path from source to distination.
+void path(int d){ //distination node
+    if(parent[d]==0){
+        cout<<"Shortest Path: "<<d;
+        return;
+    }
+    path(parent[d]);
+    cout<<" "<<d;
+}
+
+int main(){
+    freopen("in.txt","r",stdin);
+    int N,E, n1,n2;
+    cin>>N>>E;
+    for(int i=1;i<=E;i++){ //number of edges
+        cin>>n1>>n2;
+        edges[n1].push_back(n2);
+        edges[n2].push_back(n1); //since, graph is undirected.
+     }
+
+     bfs(1); //source is 1
+
+     for(int i=1;i<=N;i++)
+        cout<<"Node_"<<i<<" : level "<<level[i]<<endl;
+
+     path(9); //distination is 9
+
+return 0;
+}

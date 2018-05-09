@@ -1,0 +1,11 @@
+# Bucket Fill in Paint: 
+Clicking in an area with this tool selected fills that area with the selected color.
+
+# Solving a Maze: 
+Given a matrix with some starting point, and some destination with some 
+obstacles in between, this algorithm helps to find out the path from source 
+to destination
+
+# Minesweeper: 
+When a blank cell is discovered, this algorithm helps in revealing neighboring 
+cells. This step is done recursively till cells having numbers are discovered.

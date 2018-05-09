@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define M 1003
+vector<int> g[M];
+bool vis[M];
+int dis[M];
+
+void dfs(int u){
+    vis[u]= 1;
+    for(int i=0;i<g[u].size();i++){
+        int v= g[u][i];
+        if(vis[v]==0){ //if not visited
+            dis[v]=dis[u]+1;
+            dfs(v);
+        }
+    }
+}
+
+int main() {
+	int n, e, u, v;
+	cin>>n; 
+	e=n-1;
+	while(e--){
+	    cin>>u>>v;
+	    g[u].push_back(v);
+	    g[v].push_back(u);
+	}
+	memset(dis,0,sizeof(dis));
+	dfs(1);
+	//for(int i=0;i<=n;i++) cout<<dis[i]<<" ";
+	int mn= M;
+	int q, x, y=M;
+	cin>>q;
+	while(q--){
+	    cin>>x;
+	    if(mn>dis[x]){
+	        mn= dis[x];
+	        y= min(x, y);
+	    }
+	}
+	cout<<y;
+	return 0;
+}
+
+//problem-link: https://www.hackerearth.com/practice/algorithms/graphs/depth-first-search/practice-problems/algorithm/bishu-and-his-girlfriend/

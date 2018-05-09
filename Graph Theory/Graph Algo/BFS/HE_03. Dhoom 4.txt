@@ -1,0 +1,38 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define lng long long
+
+int main(){
+    int key, k, t;
+    cin>>key>>k;
+    cin>>t;
+    int a[t];
+    for(int i=0;i<t;i++) 
+	cin>>a[i];
+    int ans[100005];
+    memset(ans,-1,sizeof(ans));
+    queue<int> q;
+    q.push(key);
+    ans[key]=0;
+
+    while(!q.empty()){
+	lng x= q.front(); q.pop();
+	if(x==k) break;
+	for(int i=0;i<t;i++){
+	    lng m= (x*a[i])%100000;
+	    if(ans[m]==-1){
+		ans[m]= ans[x]+1;
+		q.push(m);
+	    }
+	}
+    }
+    cout<<ans[k];
+    return 0;
+}
+
+/*our key is the source node and the final lock's key is the destination node. 
+In between these 2 are the other n-1 nodes. Basically using those n-1 nodes 
+if we are able to get to destination with min hops then we are done. 
+BFS is used to get min hops. */
+
+Problem-link: https://www.hackerearth.com/practice/algorithms/graphs/breadth-first-search/practice-problems/algorithm/dhoom-4/description/

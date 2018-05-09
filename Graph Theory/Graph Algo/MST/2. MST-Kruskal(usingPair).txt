@@ -1,0 +1,84 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define lng long long
+#define pii pair<int, int>
+#define plii pair<lng, pii> 
+#define mp make_pair
+#define MX 1003
+#define time(st) printf("\nTime taken: %.6fs\n", (double)(clock() - st)/CLOCKS_PER_SEC)
+
+plii p[MX];
+int parent[MX], nodes, edges;
+
+// DisjointSetUnion
+void initialize(){
+    for(int i=1;i<=nodes;i++)
+        parent[i]=i; //initially sobar parent se nijei
+}
+//find representative of r
+int root(int r){
+    return parent[r]= parent[r]==r ? r : root(parent[r]);
+}
+//check if two nodes are connect or not
+bool isConnect(int A,int B){
+    return root(A)==root(B) ; //if A and B have same root, they are connected.
+}
+//UNION of two nodes
+int connect(int A ,int B){
+    int root_A= root(A);
+    int root_B= root(B);
+    parent[root_A]= root_B ; //setting parent of root(A) as root(B).
+}
+
+lng mstKruskal(plii p[]){
+    //sort the edges in the ascending order
+    sort(p, p+edges);
+    initialize(); //initially all are Disconnected
+    int cnt=0, minCost=0;
+    for(int i=0; i<edges; i++){
+        //selecting edges one by one in increasing order from the beginning
+        int u= root(p[i].second.first);
+        int v= root(p[i].second.second);
+        //check if the selecting edge is creating cycle or not
+        if(!isConnect(u, v)){
+            parent[u]= v;  //connect(e[i].u, e[i].v);
+            cout<<p[i].second.first<<"->"<<p[i].second.second<<" Cost:"<<p[i].first<<"\n";
+            minCost+= p[i].first;
+            cnt++;
+        }
+        if(cnt==nodes-1) //number of edge of tree = node-1;
+           break;
+    }
+    return minCost;
+}
+int main(){
+    //freopen("in.txt","r",stdin);
+    int u, v, w ;
+    cin>>nodes>>edges;
+    for(int i=0;i<edges;i++){
+        cin>>u>>v>>w;
+        p[i] = mp(w,mp(u,v));
+    }
+    cout<<"MinCost: "<<mstKruskal(p);
+  return 0;
+}
+/* 
+Input:
+7 11
+1 2 7
+1 4 5
+4 2 9
+2 3 8
+4 5 15
+2 5 7
+3 5 5
+6 7 11
+5 7 9
+4 6 6
+5 6 8
+
+Steps:
+1. Sort the graph edges with respect to their weights.
+2. Start adding edges to the MST from the edge with the smallest weight until the edge of the largest weight.
+3. Only add edges which doesn't form a cycle , edges which connect only disconnected components.
+*/

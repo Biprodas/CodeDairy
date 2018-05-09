@@ -1,0 +1,91 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sc(x) scanf("%d", &x)
+#define scc(x, y) scanf("%d %d", &x, &y)
+#define lng long long
+#define maxN 10005
+#define MOD 1000000000
+#define white 0
+#define grey 1
+#define black 2
+
+vector<int> graph[maxN+3], rgraph[maxN+3];
+int vis[maxN+3] = {0};
+bool cycle1[maxN+3], cycle2[maxN+3];
+
+int src, dest;
+lng dp[maxN+3];
+
+void dfs1(int u){
+    vis[u] = grey;
+    int sz = graph[u].size();
+    for(int i=0; i<sz; i++){
+        int v = graph[u][i];
+        if(vis[v] == white)
+            dfs1(v);
+        else if(vis[v] == grey)
+            cycle1[v] = 1;
+    }
+    vis[u] = black;
+}
+
+void dfs2(int u){
+    vis[u] = grey;
+    int sz = rgraph[u].size();
+    for(int i=0; i<sz; i++){
+        int v = rgraph[u][i];
+        if(vis[v] == white)
+            dfs2(v);
+        else if(vis[v] == grey)
+            cycle2[v] = 1;
+    }
+    vis[u] = black;
+}
+
+bool isCycle(){
+    dfs1(src);
+    memset(vis,0,sizeof(vis));
+    dfs2(dest);
+    for(int i=1; i<=dest; i++){
+        if(cycle1[i]==1 && vis[i] == black)
+            return true;
+    }
+    return false;
+}
+
+lng solve(int u){
+    if(cycle1[u] == true) return 0LL;
+    if(u == dest) return 1LL;
+    if(dp[u] != -1) return dp[u];
+
+    lng ret = 0;
+    int sz = graph[u].size();
+    for(int i=0; i<sz; i++){
+        int v = graph[u][i];
+        ret = (ret + solve(v)) % MOD;
+    }
+    
+    return dp[u] = ret;
+}
+
+int main(){
+    int n, m, u, v;
+    cin>>n>>m;
+    for(int i=0; i<m; i++){
+        cin>>u>>v;
+        graph[u].push_back(v);
+        rgraph[v].push_back(u);
+    }
+    memset(dp, -1, sizeof(dp));
+    src = 1, dest = n;
+
+    if(isCycle()==1){
+        if(cycle2[dest]==1)
+            cout<<1;
+        else 
+            cout<<"INFINITE PATHS";
+    }
+    else cout<<solve(src);
+    
+    return 0;
+}

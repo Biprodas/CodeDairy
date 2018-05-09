@@ -1,0 +1,36 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define lng long long
+#define MX 150005
+#define pb push_back
+
+vector<int> G[MX];
+bool vis[MX];
+
+int dfs(int u){
+	if(vis[u]) return 0;
+	vis[u] = 1;
+	int connected = 1;
+	for(int i=0;i<G[u].size();i++){
+		connected += dfs(G[u][i]);
+	}
+	return connected;
+}
+
+int main(){
+    int V, E, u, v;
+    cin>>V>>E;
+    for(int i=1;i<=E;i++){
+        cin>>u>>v;
+        G[u].pb(v);
+        G[v].pb(u);
+    }
+    lng e=0;
+	for(int i=1;i<=V;i++){
+		lng cntd= dfs(i);
+		e += cntd*(cntd-1) / 2;
+		//cout<<cntd<<endl;
+	}
+    e==E ? cout<<"YES" : cout<<"NO";
+return 0;
+}

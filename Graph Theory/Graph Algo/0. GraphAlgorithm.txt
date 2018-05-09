@@ -1,0 +1,49 @@
+//graph stored via adjacency list (using vector)
+#1. BFS:
+void bfs(int s){ //source node
+    queue<int> q;
+    q.push(s);
+    level[s]=0;
+    parent[s]=0;
+    vis[s]=true;
+    while(!q.empty()){
+        int p = q.front();
+        q.pop(); //delete the front element from queue
+        for(int i=0;i<edges[p].size();i++){
+            if(!vis[edges[p][i]]){
+                q.push(edges[p][i]);
+                level[edges[p][i]]=level[p]+1;
+                parent[edges[p][i]]=p;
+                vis[edges[p][i]]=true;
+            }
+
+        }
+    }
+}
+------------------------------------------------------------
+#DFS:
+//RECURSIVE approach
+void dfs(int s){  //source node
+    vis[s]=true;
+    for(int i=0;i<adj[s].size();i++){
+        if(!vis[adj[s][i]])
+           dfs(adj[s][i]);
+    }
+}
+//ITERATIVE APPROACH (using Stack)
+void dfs(int s){//source node
+    stack<int> st;
+    st.push(s);
+    vis[s]=true;
+    while(!st.empty()){
+        int v=st.top();
+        st.pop();
+        for(int i=0;i<adj[v].size();i++){
+           if(!vis[adj[v][i]]){
+                vis[adj[v][i]]=true;
+               st.push(adj[v][i]);
+           }
+        }
+    }
+}
+------------------------------------------------------------

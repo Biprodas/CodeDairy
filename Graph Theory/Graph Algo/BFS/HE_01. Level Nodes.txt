@@ -1,0 +1,49 @@
+//Find the number of nodes lies on level x
+#include<bits/stdc++.h>
+using namespace std;
+#define MX 100005
+vector<int> edges[MX];
+int level[MX]; 
+int ans[MX];
+int parent[MX];
+bool vis[MX];
+
+void bfs(int s){ //source node
+    queue<int> q;
+    q.push(s);
+    level[s]=1;
+    ans[level[s]]=1;
+    vis[s]=true;
+    while(!q.empty()){
+        int p= q.front();
+        q.pop(); //delete the front element from queue
+        for(int i=0;i<edges[p].size();i++){
+            if(!vis[edges[p][i]]){
+                q.push(edges[p][i]);
+                level[edges[p][i]]= level[p]+1;
+                ans[level[edges[p][i]]]++;
+                vis[edges[p][i]]= true;
+            }
+
+        }
+    }
+}
+
+int main(){
+    int N,E, n1,n2, x;
+    cin>>N; E=N-1;
+    for(int i=1;i<=E;i++){ //number of edges
+        cin>>n1>>n2;
+        edges[n1].push_back(n2);
+        edges[n2].push_back(n1); //since, graph is tree
+     }
+     bfs(1); //source is 1
+
+     cin>>x;
+     //for(int x=1;x<=N;x++)
+        cout<<ans[x]<<endl;
+
+return 0;
+}
+
+//Problem-Link: https://www.hackerearth.com/practice/algorithms/graphs/breadth-first-search/tutorial/

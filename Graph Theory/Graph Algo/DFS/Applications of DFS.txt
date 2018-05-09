@@ -1,0 +1,11 @@
+Applications of DFS:
+1. For unweighted graph, DFS produces the MST and all pair shrtest path tree.
+2. Detecting cycle in graph
+3. Path Finding
+4. Topological Sorting 
+5. To test if a graph is biparite
+6. Finding Strongly connected components of a graph
+7. Solving puzzles with only one solution
+
+
+ref: http://www.geeksforgeeks.org/applications-of-depth-first-search/

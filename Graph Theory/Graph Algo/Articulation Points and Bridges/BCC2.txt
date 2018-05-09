@@ -1,0 +1,112 @@
+#include<bits/stdc++.h>
+
+using namespace std;
+
+struct edge{
+    int u, v;
+};
+
+vector<int>graph[123456];
+int visited[123456];
+int disc[123456], low[123456], parent[123456];
+int node, edges, start, cntbcc;
+stack<edge>BCCedge;
+
+void DFS(int u)
+{
+    low[u] = disc[u] = start+1;
+    start = start + 1;
+    int child = 0;
+    visited[u] = true;
+    int sz = graph[u].size();
+    for(int i=0; i<sz; i++)
+    {
+        int v = graph[u][i];
+        if(!visited[v])
+        {
+            child++;
+            parent[v] = u;
+            edge T;
+            T.u = u, T.v = v;
+            if(T.u>T.v) swap(T.u, T.v);
+            BCCedge.push(T);
+            DFS(v);
+            low[u] = min(low[u], low[v]);
+
+            if((parent[u]==-1 && child>1) || (parent[u]!=-1 && low[v]>=disc[u]))
+            {
+                printf("Edge list of Component %d: \n", ++cntbcc);
+                while(BCCedge.top().u!=u || BCCedge.top().v!=v)
+                {
+                    printf("%d -- %d\n", BCCedge.top().u, BCCedge.top(). v);
+                    BCCedge.pop();
+                }
+                printf("%d -- %d\n", BCCedge.top().u, BCCedge.top().v);
+                BCCedge.pop();
+
+            }
+        }
+        else if(v!=parent[u] && disc[v]<low[u]){
+            low[u] = min(disc[v], low[u]);
+            edge T;
+            T.u = u, T.v = v;
+            if(T.u>T.v) swap(T.u, T.v);
+            BCCedge.push(T);
+        }
+    }
+}
+
+void BCC()
+{
+    for(int i=0; i<=node; i++)
+    {
+        disc[i] = -1;
+        low[i] = -1;
+        parent[i] = -1;
+        visited[i] = 0;
+    }
+
+    for(int i=0; i<node; i++)
+    {
+        //start = 0;
+        if(!visited[i]) {
+            DFS(i);
+            printf("Edge list of Component %d: \n", ++cntbcc);
+        	while(BCCedge.size()>0) {
+            	edge T = BCCedge.top();
+            	BCCedge.pop();
+            	printf("%d -- %d\n", T.u, T.v);
+        	} 
+        }
+    }
+}
+
+int main()
+{
+    scanf("%d %d", &node, &edges);
+    for(int i=0; i<edges; i++){
+        int u, v;
+        scanf("%d %d", &u, &v);
+        graph[u].push_back(v);
+        graph[v].push_back(u);
+    }
+    BCC();
+}
+
+/*
+12 14
+0 1
+1 2
+1 3
+2 3
+2 4
+3 4
+1 5
+0 6
+5 6
+5 7
+5 8
+7 8
+8 9
+10 11
+*/

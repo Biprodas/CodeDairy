@@ -1,0 +1,78 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define sf(x) scanf("%d",&x)
+#define sff(x,y) scanf("%d %d",&x,&y)
+#define sfff(x,y,z) scanf("%d %d %d",&x,&y,&z)
+#define pf(x) printf("%d",x)
+#define pff(x, y) printf("%d %d\n",x, y)
+#define pii pair<int, int>
+#define mp make_pair
+#define pb push_back
+
+int n;
+int dist[100005];
+int vis[100005];
+vector<pii> v[100005];
+
+int bfs (int s) {
+	queue<int> q;
+	q.push(s);
+	for(int i=0;i<=n;i++){
+		vis[i]=0;
+		dist[i]=0;
+	}
+	vis[s]=1;
+	while(!q.empty()){
+		int x= q.front();
+		//cout<<x<<" ";
+		q.pop();
+		for(int i=0;i<v[x].size();i++){
+			if(vis[v[x][i].first] == 0){
+				vis[v[x][i].first] = 1;
+				dist[v[x][i].first] += dist[x] + v[x][i].second;
+				q.push(v[x][i].first);
+			}
+		}
+	}
+	return int(max_element(dist+1, dist+n+1) - dist);
+}
+int main() {
+	int tc, u1, v1, d;
+	pii p;
+	sf(tc);
+	while(tc--){
+		sf(n);
+		for(int i=1;i<=n;i++) {
+			v[i].clear();
+		}
+		for(int i=1;i<=n-1;i++) {
+			sfff(u1,v1,d);
+			p.first= v1;
+			p.second= d;
+			v[u1].pb(p);
+			p.first= u1;
+			v[v1].pb(p);
+		}
+		int start = bfs(1);
+		int end = bfs(start);
+		int diameter = dist[end];
+		int money = 0;
+		if (diameter>100)
+			money = 100;
+		if (diameter>1000)
+			money = 1000;
+		if (diameter>10000)
+			money = 10000;
+		pff(money,diameter);
+	}
+	return 0;
+}
+
+/*
+Step 1: select a random node A
+Step 2: run bfs/dfs from A and find the farthest node say S
+Step 3: run bfs/dfs from S and find the farthest node say D
+Step 4: d(S, D) is the diameter of the tree
+void bfs(int s){
+*/
+//Problem-Link: https://www.hackerearth.com/practice/algorithms/graphs/breadth-first-search/practice-problems/algorithm/agitated-chandan/description/

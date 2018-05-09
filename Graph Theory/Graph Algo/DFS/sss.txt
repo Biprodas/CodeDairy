@@ -1,0 +1,7 @@
+void dfs(int u){
+    visited[s]=true; //current node visited kore dilam
+    for(int i=0; i<graph[u].size(); i++){
+	int v = graph[u][i];
+        if(!visited[v]) dfs(v); //current node theke jesob node a jaoa jy age sugulor kaj sari
+    }
+}

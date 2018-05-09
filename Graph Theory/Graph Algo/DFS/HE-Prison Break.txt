@@ -1,0 +1,45 @@
+#include <bits/stdc++.h>
+using namespace std;
+
+int a[21][21];
+bool vis[21][21];
+int fx[]={1,-1,0,0};
+int fy[]={0,0,1,-1};
+int n;
+
+bool ok(int x, int y){
+	if (x>=0 && x<n && y>=0 && y<n && a[x][y]==0 && !vis[x][y]) return true;
+	return false;
+}
+
+int dfs(int x, int y){
+    if(x==n-1 and y==n-1) return 1;
+    vis[x][y]= true;
+    int ans=0;
+    for(int i=0;i<4;i++){
+        int dx= x+fx[i];
+        int dy= y+fy[i];
+        if(ok(dx,dy)){
+            ans += dfs(dx,dy);
+            vis[dx][dy]= false; //backtrack
+        }
+    }
+    return ans;
+}
+
+int main() {
+    int t;
+    cin>>t;
+    while(t--){
+        cin>>n;
+        for(int i=0;i<n;i++){
+            for(int j=0;j<n;j++)
+                cin>>a[i][j];
+        }
+        memset(vis,0,sizeof(vis));
+        int ans= dfs(0,0);
+        cout<<ans<<endl;
+    }
+}
+
+//problem-link: https://www.hackerearth.com/practice/algorithms/graphs/depth-first-search/practice-problems/algorithm/prison-break-5/description/

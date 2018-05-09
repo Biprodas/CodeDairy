@@ -1,0 +1,59 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define MX 101
+pair<long long, pair<int, int>> p[MX];
+int parent[MX], nodes, edges;
+//DisjointSet
+void initialize(){
+    for(int i=1;i<=nodes;i++)
+        parent[i]=i;//initially sobar parent se nijei
+}
+//find representative of r
+int root(int r){
+    return parent[r]==r? r: parent[r]=root(parent[r]);
+}
+//check if two nodes are connect or not
+bool isConnect(int A,int B){
+    return root(A)==root(B) ? true : false;//if A and B have same root, they are connected.
+}
+//UNION of two nodes
+int connect(int A ,int B){
+    int root_A = root(A);
+    int root_B = root(B);
+    parent[root_A] = root_B ;       //setting parent of root(A) as root(B).
+}
+
+long long mstKruskal(pair<long long, pair<int, int> > p[]){
+    //sort the edges in the ascending order
+    sort(p,p+edges);
+    initialize();
+    int cnt=0,minCost=0;
+    for(int i=0;i<edges;i++){
+        //selecting edges one by one in increasing order from the beginning
+        int u=root(p[i].second.first);
+        int v=root(p[i].second.second);
+        //check if the selecting edge is creating cycle or not
+        if(!isConnect(u,v)){
+            //connect(e[i].u,e[i].v);
+            parent[u]=v;
+            cout<<p[i].second.first<<"->"<<p[i].second.second<<" Cost:"<<p[i].first<<"\n";
+            minCost+=p[i].first;
+            cnt++;
+        }
+        if(cnt==nodes-1) //number of edge of tree = node-1;
+           break;
+    }
+    return minCost;
+}
+int main(){
+    //freopen("in.txt","r",stdin);
+    int u, v, w ;
+    cin>>nodes>>edges;
+    for(int i=0;i<edges;i++){
+        cin>>u>>v>>w;
+        p[i]=make_pair(w,make_pair(u,v));
+    }
+    cout<<"MinCost: "<<mstKruskal(p);
+  return 0;
+}

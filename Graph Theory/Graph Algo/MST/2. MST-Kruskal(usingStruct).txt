@@ -1,0 +1,64 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+#define Mx 101
+
+struct edge{
+    int u, v, w;
+    bool operator < (const edge& p) const{
+       return w<p.w;
+    }
+};
+vector<edge> e;
+int parent[Mx];
+//DisjointSet
+void initialize(int n){
+    for(int i=1;i<=n;i++)
+        parent[i]=i;//initially sobar parent se nijei
+}
+//find representative of r
+int root(int r){
+    return parent[r]==r? r: parent[r]=root(parent[r]);
+}
+bool isConnect(int A,int B){
+    return root(A)==root(B) ? true : false;//if A and B have same root, they are connected.
+}
+int connect(int A ,int B){
+    int root_A = root(A);
+    int root_B = root(B);
+    parent[root_A] = root_B ;       //setting parent of root(A) as root(B).
+}
+
+int mstKruskal(int n){
+    sort(e.begin(),e.end());
+    initialize(n);
+    int cnt = 0, minCost = 0;
+    for(int i=0; i<e.size(); i++){
+        int u = root(e[i].u);
+        int v = root(e[i].v);
+        if(u != v){ //if(!isConnect(e[i].u, e[i].v)
+            parent[u] = v; //connect(e[i].u, e[i].v);
+            cout<<e[i].u<<"- > "<<e[i].v<<"  Cost: "<<e[i].w<<"\n";
+            minCost += e[i].w;
+            cnt++;
+        }
+        if(cnt == n-1) //number of edge of tree = node-1;
+           break;
+    }
+    return minCost;
+}
+int main(){
+    freopen("in.txt","r",stdin);
+    int n, m, u, v, w ;
+    cin>>n>>m;
+    for(int i=0;i<m;i++){
+        cin>>u>>v>>w;
+        edge get;
+        get.u = u;
+	get.v = v;
+	get.w = w;
+        e.push_back(get);
+    }
+    cout<<"MinCost: "<<mstKruskal(n);
+  return 0;
+}

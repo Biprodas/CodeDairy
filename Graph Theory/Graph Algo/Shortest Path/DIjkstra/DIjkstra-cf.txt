@@ -1,0 +1,54 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define pii pair<int,int>
+#define pb push_back
+#define lng long long
+#define MX 1000006
+
+vector<pii> G[MX];
+priority_queue<pii,vector<pii>,greater<pii>> pq; //minHeap
+
+lng n, m , u , v , w , dis[MX], dir[MX];
+
+bool Dijkstra(int s){
+    dis[1]=0;
+    pq.push({dis[1],s});
+    while(!pq.empty()){
+        u= pq.top().second;
+        pq.pop();
+        for(int i=0;i<G[u].size();i++){
+            v= G[u][i].second;
+            w= G[u][i].first;
+            //Relaxation
+            if(dis[v] > dis[u]+w){
+		        dis[v]= dis[u]+w;
+                dir[v]= u; //Shortest Path
+                pq.push({dis[v],v});
+            }
+        }
+    }
+    return dir[n]!=-1;
+}
+void printPath(int u){
+    if(u==-1) return;
+    printPath(dir[u]);
+    cout<<u<<' ';
+}
+int main(){
+    cin>>n>>m;
+    for(int i=1;i<=n;i++){
+        dis[i]=1e18;
+        dir[i]=-1;
+    }
+    while(m--){
+        cin>>u>>v>>w;
+        G[u].pb({w,v});
+        G[v].pb({w,u}); //undirected graph
+    }
+    
+    if(Dijkstra(1)) printPath(n);
+    else printf("-1");
+    
+    return 0;
+}
+//Problem-Link: http://codeforces.com/contest/20/problem/C

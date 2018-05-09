@@ -1,0 +1,67 @@
+#include <bits/stdc++.h>
+using namespace std;
+#define pii pair<int, int>
+#define piii pair<int, pii>
+
+int fx[] = {-1, -1, -1, 0, 0, 1, 1, 1};
+int fy[] = {-1, 0, 1, -1, 1, -1, 0, 1};
+queue<piii> q;
+int ar[505][505];
+int n, m, mx;
+
+void clear(){
+    while(!q.empty()) 
+        q.pop();
+}
+bool ok(int x, int y){
+	if (x>=0 && x<n && y>=0 && y<m && ar[x][y]!=mx) return true;
+	return false;
+}
+
+int bfs(){
+    int level;
+    while(!q.empty()){
+        piii u= q.front();
+        q.pop();
+	    //cout<<u.first<<" "<<u.second.first<<" "<<u.second.second<<endl;
+        for(int i=0;i<8;i++){
+            int dx= fx[i] + u.second.first;
+            int dy= fy[i] + u.second.second;
+            level= u.first + 1;
+            //cout<<level<<" "<<dx<<","<<dy<<endl;
+            piii v= {level,{dx,dy}}; //make_pair(level,(dx,dy));
+            if(ok(dx,dy)){
+                //cout<<" ok\n";
+                ar[dx][dy]=mx;
+                q.push(v);
+            }
+        }
+    }
+    return level;
+}
+
+int main(){
+    //freopen("in.txt","r",stdin);
+	int t, x;
+	cin>>t;
+	while(t--){
+	    cin>>n>>m;
+            clear();
+	    mx=0;
+	    for(int i=0;i<n;i++){
+	        for(int j=0;j<m;j++){
+	            cin>>x;
+	            ar[i][j]=x;
+	            if(mx<x){
+	                clear();
+	                mx=x;
+	            }
+	            if(mx==x) q.push({0, {i,j}});
+	        }
+	    }
+      
+	    cout<<bfs()-1<<endl;
+	}
+
+	return 0;
+}

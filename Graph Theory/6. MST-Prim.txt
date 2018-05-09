@@ -1,0 +1,46 @@
+#include<bits/stdc++.h>
+using namespace std;
+#define MX 101
+typedef pair<long long, int> PII;
+bool marked[MX];
+vector<PII> adj[MX];
+
+long long mstPrim(int x){
+    priority_queue<PII,vector<PII>,greater<PII> > Q;
+    int y;
+    long long minCost=0;
+    PII p;
+    Q.push(make_pair(0,x));
+    while(!Q.empty()){
+        //select the edge with minimum weight
+        p=Q.top();
+        Q.pop();
+        x=p.second;
+        //checking for cycle
+        if(marked[x])
+            continue;
+        minCost+=p.first;
+        marked[x]=true;
+        for(int i=0;i<adj[x].size();i++){
+            y=adj[x][i].second;
+            if(!marked[y])
+                Q.push(adj[x][i]);
+        }
+    }
+    return minCost;
+}
+
+int main(){
+    freopen("in.txt","r",stdin);
+    int nodes, edges, x, y;
+    long long weight, minCost;
+    cin>>nodes>>edges;
+    for(int i=0;i<edges;i++){
+        cin>>x>>y>>weight;
+        adj[x].push_back(make_pair(weight,y));
+        adj[y].push_back(make_pair(weight,x));
+    }
+    minCost=mstPrim(1);
+    cout<<minCost;
+return 0;
+}

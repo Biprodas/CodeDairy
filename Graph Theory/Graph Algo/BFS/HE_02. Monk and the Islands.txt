@@ -1,0 +1,45 @@
+//Determine that #N lies in which level
+#include <bits/stdc++.h>
+using namespace std;
+#define MX 100005
+#define pb push_back
+vector<int> adj[MX];
+int level[MX];
+bool vis[MX];
+
+void bfs(int s){ //source node
+    queue<int> q;
+    q.push(s);
+    level[s]=0;
+    vis[s]=true;
+    while(!q.empty()){
+        int p= q.front();
+        q.pop();
+        for(int i=0;i<adj[p].size();i++){
+            if(!vis[adj[p][i]]){
+                q.push(adj[p][i]);
+                level[adj[p][i]]= level[p]+1;
+                vis[adj[p][i]]= true;
+            }
+        }
+    }
+}
+
+int main(){
+    int t, N,M, x,y;
+    cin>>t;
+    while(t--){
+        memset(vis,false,sizeof(vis));
+        for(auto& v : adj) v.clear();
+        cin>>N>>M;
+        while(M--){
+            cin>>x>>y;
+            adj[x].pb(y);
+            adj[y].pb(x);
+        }
+        bfs(1);
+        cout<<level[N]<<"\n";
+    }
+}
+
+//Problem-Link: https://www.hackerearth.com/practice/algorithms/graphs/breadth-first-search/practice-problems/algorithm/monk-and-the-islands/
